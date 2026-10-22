@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.5
+
+Memo Search can be limited to some projects with the new Project Names or IDs filter.
+
 ## 0.1.4
 
 The Equals operator in row conditions can be picked from the list again. Before, n8n turned it into an empty expression.

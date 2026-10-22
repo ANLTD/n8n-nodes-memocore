@@ -1,6 +1,7 @@
 import { NodeConnectionTypes, type INodeType, type INodeTypeDescription } from 'n8n-workflow';
 import { getProjects, getTableProjects } from './listSearch/getProjects';
 import { getColumns } from './loadOptions/getColumns';
+import { getProjectOptions } from './loadOptions/getProjectOptions';
 import { getTags } from './loadOptions/getTags';
 import { getRowFields } from './resourceMapping/getRowFields';
 import { memoDescription } from './resources/memo';
@@ -76,6 +77,7 @@ export class Memocore implements INodeType {
 		},
 		loadOptions: {
 			getColumns,
+			getProjectOptions,
 			getTags,
 		},
 		resourceMapping: {

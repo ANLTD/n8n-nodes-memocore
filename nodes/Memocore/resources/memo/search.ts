@@ -131,6 +131,23 @@ export const memoSearchDescription: INodeProperties[] = [
 				},
 			},
 			{
+				displayName: 'Project Names or IDs',
+				name: 'projects',
+				type: 'multiOptions',
+				typeOptions: {
+					loadOptionsMethod: 'getProjectOptions',
+				},
+				default: [],
+				description:
+					'Search only these projects. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'project_id',
+					},
+				},
+			},
+			{
 				displayName: 'Tag Names or IDs',
 				name: 'tags',
 				type: 'multiOptions',

@@ -22,7 +22,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 **Memo**
 
-- Search: find memos by meaning and keywords, optionally filtered by tags
+- Search: find memos by meaning and keywords, optionally only in some projects or with some tags
 - Get: get the full text of a memo
 - Create: save a new memo to a project
 - Update: change the text, tags or other fields of a memo
@@ -97,6 +97,7 @@ The agent now answers from what your team has already written down and adds to i
 
 ## Version history
 
+- 0.1.5: Memo Search can be limited to some projects.
 - 0.1.4: the Equals operator in row conditions works when picked from the list.
 - 0.1.3: Row Get and Aggregate, filters for Row Query, memo fields for Row Create and Update.
 - 0.1.2: dates in datetime columns are sent in the workflow's time zone.
