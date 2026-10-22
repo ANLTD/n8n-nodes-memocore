@@ -71,15 +71,15 @@ export const rowQueryDescription: INodeProperties[] = [
 							},
 							{
 								name: 'Equals',
-								value: '=',
+								value: 'eq',
 							},
 							{
 								name: 'Greater Than',
-								value: '>',
+								value: 'gt',
 							},
 							{
 								name: 'Greater Than or Equal',
-								value: '>=',
+								value: 'gte',
 							},
 							{
 								name: 'Is Empty',
@@ -95,18 +95,18 @@ export const rowQueryDescription: INodeProperties[] = [
 							},
 							{
 								name: 'Less Than',
-								value: '<',
+								value: 'lt',
 							},
 							{
 								name: 'Less Than or Equal',
-								value: '<=',
+								value: 'lte',
 							},
 							{
 								name: 'Not Equals',
-								value: '!=',
+								value: 'ne',
 							},
 						],
-						default: '=',
+						default: 'eq',
 					},
 					{
 						displayName: 'Value',

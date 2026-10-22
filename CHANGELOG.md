@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4
+
+The Equals operator in row conditions can be picked from the list again. Before, n8n turned it into an empty expression.
+
 ## 0.1.3
 
 Rows: new Get and Aggregate operations, tag and archive filters and a column choice for Query, and a title, summary, search hints, tags and lifetime for Create and Update.

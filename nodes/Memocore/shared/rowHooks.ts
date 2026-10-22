@@ -28,6 +28,15 @@ type TGroupInput = {
 
 const VALUELESS_OPERATORS = ['empty', 'not_empty'];
 
+const API_OPERATORS: Record<string, string> = {
+	eq: '=',
+	ne: '!=',
+	gt: '>',
+	gte: '>=',
+	lt: '<',
+	lte: '<=',
+};
+
 const DATE_WITHOUT_OFFSET = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?)?$/;
 
 function zoneOffsetMs(date: Date, timeZone: string): number {
@@ -77,7 +86,7 @@ function toCondition(input: TConditionInput): IDataObject {
 		};
 	}
 
-	return { column: input.column, op: input.operator, value };
+	return { column: input.column, op: API_OPERATORS[input.operator] ?? input.operator, value };
 }
 
 export async function sendRowFields(
