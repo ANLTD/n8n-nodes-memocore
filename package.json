@@ -1,5 +1,5 @@
 {
-	"name": "n8n-nodes-memocore",
+	"name": "@anweb/n8n-nodes-memocore",
 	"version": "0.1.0",
 	"description": "n8n node for memocore: search, create, update and archive your team's memos and table rows",
 	"license": "MIT",
@@ -31,6 +31,9 @@
 	"files": [
 		"dist"
 	],
+	"publishConfig": {
+		"access": "public"
+	},
 	"n8n": {
 		"n8nNodesApiVersion": 1,
 		"strict": true,

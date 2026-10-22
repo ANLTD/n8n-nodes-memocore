@@ -1,4 +1,4 @@
-# n8n-nodes-memocore
+# @anweb/n8n-nodes-memocore
 
 This is an n8n community node. It lets you use [memocore](https://memocore.ai) in your n8n workflows.
 
