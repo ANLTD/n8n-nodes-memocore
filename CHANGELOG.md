@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+Dates picked for a datetime column are sent in the workflow's time zone. Before, memocore refused them because they had no time zone.
+
 ## 0.1.1
 
 Published from GitHub Actions through npm trusted publishing. No changes to the node.

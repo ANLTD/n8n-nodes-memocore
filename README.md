@@ -95,5 +95,6 @@ The agent now answers from what your team has already written down and adds to i
 
 ## Version history
 
+- 0.1.2: dates in datetime columns are sent in the workflow's time zone.
 - 0.1.1: published through npm trusted publishing, no changes to the node.
 - 0.1.0: first release with the Memo, Row, Project and Tag resources.
