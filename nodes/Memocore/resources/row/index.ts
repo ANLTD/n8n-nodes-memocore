@@ -1,7 +1,9 @@
 import type { INodeProperties } from 'n8n-workflow';
 import { tableSelect } from '../../shared/descriptions';
 import { sendRowFields, sendRowQuery } from '../../shared/rowHooks';
-import { rowQueryDescription } from './query';
+import { memoOptionalFields } from '../memo/create';
+import { rowAggregateDescription } from './aggregate';
+import { rowFilterDescription, rowQueryDescription } from './query';
 
 const showOnlyForRows = {
 	resource: ['row'],
@@ -17,6 +19,31 @@ export const rowDescription: INodeProperties[] = [
 			show: showOnlyForRows,
 		},
 		options: [
+			{
+				name: 'Aggregate',
+				value: 'aggregate',
+				action: 'Aggregate rows',
+				description: 'Count, sum or average the rows of a table, in total or by group',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/projects/{{$parameter.project}}/rows/query',
+					},
+					send: {
+						preSend: [sendRowQuery],
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								properties: {
+									property: 'groups',
+								},
+							},
+						],
+					},
+				},
+			},
 			{
 				name: 'Create',
 				value: 'create',
@@ -43,6 +70,18 @@ export const rowDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'DELETE',
+						url: '=/memos/{{encodeURIComponent($parameter.rowId)}}',
+					},
+				},
+			},
+			{
+				name: 'Get',
+				value: 'get',
+				action: 'Get a row',
+				description: 'Get one row with all its values',
+				routing: {
+					request: {
+						method: 'GET',
 						url: '=/memos/{{encodeURIComponent($parameter.rowId)}}',
 					},
 				},
@@ -95,7 +134,7 @@ export const rowDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				...showOnlyForRows,
-				operation: ['create', 'query', 'update'],
+				operation: ['aggregate', 'create', 'query', 'update'],
 			},
 		},
 	},
@@ -108,7 +147,7 @@ export const rowDescription: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				...showOnlyForRows,
-				operation: ['delete', 'update'],
+				operation: ['delete', 'get', 'update'],
 			},
 		},
 		description: 'The ID of the row',
@@ -144,5 +183,21 @@ export const rowDescription: INodeProperties[] = [
 			},
 		},
 	},
+	{
+		displayName: 'Additional Fields',
+		name: 'additionalFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				...showOnlyForRows,
+				operation: ['create', 'update'],
+			},
+		},
+		options: memoOptionalFields,
+	},
 	...rowQueryDescription,
+	...rowAggregateDescription,
+	...rowFilterDescription,
 ];

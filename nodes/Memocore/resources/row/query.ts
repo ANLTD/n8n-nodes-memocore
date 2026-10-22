@@ -5,6 +5,11 @@ const showOnlyForRowQuery = {
 	resource: ['row'],
 };
 
+const showOnlyForRowFilter = {
+	operation: ['aggregate', 'query'],
+	resource: ['row'],
+};
+
 export const rowQueryDescription: INodeProperties[] = [
 	{
 		displayName: 'Match',
@@ -22,7 +27,7 @@ export const rowQueryDescription: INodeProperties[] = [
 		],
 		default: 'and',
 		displayOptions: {
-			show: showOnlyForRowQuery,
+			show: showOnlyForRowFilter,
 		},
 		description: 'Whether a row must match every condition or at least one',
 	},
@@ -36,7 +41,7 @@ export const rowQueryDescription: INodeProperties[] = [
 		placeholder: 'Add Condition',
 		default: {},
 		displayOptions: {
-			show: showOnlyForRowQuery,
+			show: showOnlyForRowFilter,
 		},
 		options: [
 			{
@@ -222,5 +227,97 @@ export const rowQueryDescription: INodeProperties[] = [
 				maxResults: '={{$value}}',
 			},
 		},
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		displayOptions: {
+			show: showOnlyForRowQuery,
+		},
+		options: [
+			{
+				displayName: 'Return Column Names or IDs',
+				name: 'columns',
+				type: 'multiOptions',
+				typeOptions: {
+					loadOptionsMethod: 'getColumns',
+					loadOptionsDependsOn: ['project.value'],
+				},
+				default: [],
+				description:
+					'Only these columns are returned in each row. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'columns',
+					},
+				},
+			},
+		],
+	},
+];
+
+export const rowFilterDescription: INodeProperties[] = [
+	{
+		displayName: 'Filters',
+		name: 'filters',
+		type: 'collection',
+		placeholder: 'Add Filter',
+		default: {},
+		displayOptions: {
+			show: showOnlyForRowFilter,
+		},
+		options: [
+			{
+				displayName: 'Archived Only',
+				name: 'archived',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to use only deleted rows that are still in the archive',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'archived',
+					},
+				},
+			},
+			{
+				displayName: 'Exclude Tag Names or IDs',
+				name: 'excludeTags',
+				type: 'multiOptions',
+				typeOptions: {
+					loadOptionsMethod: 'getTags',
+				},
+				default: [],
+				description:
+					'Rows with any of these tags are left out. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'exclude_tags',
+					},
+				},
+			},
+			{
+				displayName: 'Tag Names or IDs',
+				name: 'tags',
+				type: 'multiOptions',
+				typeOptions: {
+					loadOptionsMethod: 'getTags',
+				},
+				default: [],
+				description:
+					'Only rows with all of these tags. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'tags',
+					},
+				},
+			},
+		],
 	},
 ];

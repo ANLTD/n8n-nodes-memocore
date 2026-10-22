@@ -30,8 +30,10 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 **Row** (table projects)
 
-- Query: filter and sort the rows of a table
-- Create: add a row, with a field for each column
+- Query: filter and sort the rows of a table, optionally by tags or in the archive
+- Aggregate: count, sum, average, minimum or maximum over the rows, in total or grouped by up to two columns
+- Get: get one row with all its values
+- Create: add a row, with a field for each column, plus an optional title, summary, tags and lifetime
 - Update: change some values of a row; columns you leave out keep their values
 - Delete: move a row to the archive
 
@@ -95,6 +97,7 @@ The agent now answers from what your team has already written down and adds to i
 
 ## Version history
 
+- 0.1.3: Row Get and Aggregate, filters for Row Query, memo fields for Row Create and Update.
 - 0.1.2: dates in datetime columns are sent in the workflow's time zone.
 - 0.1.1: published through npm trusted publishing, no changes to the node.
 - 0.1.0: first release with the Memo, Row, Project and Tag resources.

@@ -16,6 +16,16 @@ type TSortInput = {
 	direction: 'asc' | 'desc';
 };
 
+type TCalculationInput = {
+	function: 'count' | 'sum' | 'avg' | 'min' | 'max';
+	column?: string;
+};
+
+type TGroupInput = {
+	column: string;
+	step: 'day' | 'week' | 'month' | 'year';
+};
+
 const VALUELESS_OPERATORS = ['empty', 'not_empty'];
 
 const DATE_WITHOUT_OFFSET = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?)?$/;
@@ -88,7 +98,11 @@ export async function sendRowFields(
 				: value;
 	}
 
-	requestOptions.body = { ...(requestOptions.body as IDataObject | undefined), fields };
+	const body: IDataObject = { ...(requestOptions.body as IDataObject | undefined) };
+	if (Object.keys(fields).length || this.getNodeParameter('operation') === 'create')
+		body.fields = fields;
+
+	requestOptions.body = body;
 
 	return requestOptions;
 }
@@ -101,14 +115,30 @@ export async function sendRowQuery(
 	const conditions = (this.getNodeParameter('conditions.condition', []) as TConditionInput[]).map(
 		toCondition,
 	);
-	const sort = (this.getNodeParameter('sort.sortRule', []) as TSortInput[]).map((rule) => ({
-		column: rule.column,
-		order: rule.direction,
-	}));
 
 	const body: IDataObject = { ...(requestOptions.body as IDataObject | undefined) };
 	if (conditions.length) body.where = { mode: match, conditions };
-	if (sort.length) body.sort = sort;
+
+	if (this.getNodeParameter('operation') === 'aggregate') {
+		const calculations = (
+			this.getNodeParameter('calculations.calculation', []) as TCalculationInput[]
+		).map((input) =>
+			input.function === 'count' ? { fn: 'count' } : { fn: input.function, column: input.column },
+		);
+		const groups = (this.getNodeParameter('groupBy.group', []) as TGroupInput[]).map((input) =>
+			input.step === 'day' ? { column: input.column } : { column: input.column, step: input.step },
+		);
+
+		body.aggregate = calculations.length ? calculations : [{ fn: 'count' }];
+		if (groups.length) body.group_by = groups;
+		body.timezone = this.getTimezone();
+	} else {
+		const sort = (this.getNodeParameter('sort.sortRule', []) as TSortInput[]).map((rule) => ({
+			column: rule.column,
+			order: rule.direction,
+		}));
+		if (sort.length) body.sort = sort;
+	}
 
 	requestOptions.body = body;
 
