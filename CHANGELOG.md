@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6
+
+The node's codex names it by its full identifier, `@anweb/n8n-nodes-memocore.memocore`, as n8n verification requires. No changes to how the node works.
+
 ## 0.1.5
 
 Memo Search can be limited to some projects with the new Project Names or IDs filter.
