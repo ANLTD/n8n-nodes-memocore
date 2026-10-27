@@ -12,7 +12,6 @@ memocore is shared memory for a team and its AI tools: notes and tables that eve
 [Usage](#usage)
 [Example workflows](#example-workflows)
 [Resources](#resources)
-[Version history](#version-history)
 
 ## Installation
 
@@ -94,12 +93,4 @@ The agent now answers from what your team has already written down and adds to i
 
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
 - [memocore](https://memocore.ai)
-
-## Version history
-
-- 0.1.5: Memo Search can be limited to some projects.
-- 0.1.4: the Equals operator in row conditions works when picked from the list.
-- 0.1.3: Row Get and Aggregate, filters for Row Query, memo fields for Row Create and Update.
-- 0.1.2: dates in datetime columns are sent in the workflow's time zone.
-- 0.1.1: published through npm trusted publishing, no changes to the node.
-- 0.1.0: first release with the Memo, Row, Project and Tag resources.
+- [Changelog](https://github.com/ANLTD/n8n-nodes-memocore/blob/main/CHANGELOG.md)
